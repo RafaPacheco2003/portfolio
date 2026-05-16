@@ -7,27 +7,20 @@ import { useEffect, useRef, useState } from "react";
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const sections = 2;
-
   const isAnimating = useRef(false);
 
   useEffect(() => {
     const handleWheel = (e) => {
       e.preventDefault();
-
       if (isAnimating.current) return;
 
       const direction = e.deltaY > 0 ? 1 : -1;
 
       setCurrentSection((prev) => {
-        const next = Math.max(
-          0,
-          Math.min(sections - 1, prev + direction)
-        );
-
+        const next = Math.max(0, Math.min(sections - 1, prev + direction));
         if (next === prev) return prev;
 
         isAnimating.current = true;
-
         setTimeout(() => {
           isAnimating.current = false;
         }, 900);
@@ -36,13 +29,8 @@ function App() {
       });
     };
 
-    window.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
@@ -55,12 +43,10 @@ function App() {
             About
             <span className="absolute left-0 -bottom-2 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
           </li>
-
           <li className="group relative cursor-pointer">
             Skills
             <span className="absolute left-0 -bottom-2 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
           </li>
-
           <li className="group relative cursor-pointer">
             Projects
             <span className="absolute left-0 -bottom-2 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -74,14 +60,10 @@ function App() {
         {/* HERO */}
         <motion.div
           className="absolute inset-0 w-full h-full"
+          style={{ willChange: "transform" }}
           initial={{ x: "0%" }}
-          animate={{
-            x: currentSection === 0 ? "0%" : "-100%",
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.76, 0, 0.24, 1],
-          }}
+          animate={{ x: currentSection === 0 ? "0%" : "-100%" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
           <Hero />
         </motion.div>
@@ -89,14 +71,10 @@ function App() {
         {/* EXPERIENCE */}
         <motion.div
           className="absolute inset-0 w-full h-full"
+          style={{ willChange: "transform" }}
           initial={{ x: "100%" }}
-          animate={{
-            x: currentSection === 1 ? "0%" : "100%",
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.76, 0, 0.24, 1],
-          }}
+          animate={{ x: currentSection === 1 ? "0%" : "100%" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
           <Experience currentSection={currentSection} />
         </motion.div>
@@ -110,9 +88,7 @@ function App() {
             key={i}
             onClick={() => setCurrentSection(i)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              currentSection === i
-                ? "bg-white scale-125"
-                : "bg-white/40"
+              currentSection === i ? "bg-white scale-125" : "bg-white/40"
             }`}
           />
         ))}

@@ -15,10 +15,9 @@ function Experience({ currentSection }) {
         dark={false}
       />
 
-      {/* OSCURO */}
       <Card
         index={1}
-        image={"/megasurExp.png"}
+        image="/megasurExp.png"
         title={null}
         description={null}
         isVisible={isVisible}

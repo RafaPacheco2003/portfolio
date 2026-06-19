@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const cardVariants = {
-  hidden:     { opacity: 0, scale: 0.95 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: (i) => ({
     opacity: 1,
     scale: 1,
@@ -15,7 +15,7 @@ const cardVariants = {
     opacity: 0,
     scale: 0.95,
     transition: {
-      delay: i * 0.08,   // cascada al revés
+      delay: i * 0.08,
       duration: 0.3,
     },
   }),
@@ -30,9 +30,12 @@ function Card({ index, image, title, description, isVisible, dark }) {
       variants={cardVariants}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden_out"}
-      className="group relative overflow-hidden border border-white/10 cursor-pointer"
-      style={{ willChange: "transform, opacity" }}
+      // pointer-events off cuando no está visible para no calcular hovers innecesarios
+      className={`group relative overflow-hidden border border-white/10 cursor-pointer ${
+        !isVisible ? "pointer-events-none" : ""
+      }`}
     >
+      {/* Background image — sin willChange, el browser optimiza solo */}
       {image && (
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -40,9 +43,10 @@ function Card({ index, image, title, description, isVisible, dark }) {
         />
       )}
 
+      {/* Overlay — sin backdrop-blur, solo opacidad sólida */}
       <div
-        className={`absolute inset-0 backdrop-blur-sm transition-opacity duration-500 group-hover:opacity-0 ${
-          dark ? "bg-zinc-950/80" : "bg-zinc-900/70"
+        className={`absolute inset-0 transition-opacity duration-500 group-hover:opacity-0 ${
+          dark ? "bg-zinc-950/85" : "bg-zinc-900/75"
         }`}
       />
 

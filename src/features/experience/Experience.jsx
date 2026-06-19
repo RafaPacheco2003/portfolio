@@ -4,8 +4,7 @@ function Experience({ currentSection }) {
   const isVisible = currentSection === 1;
 
   return (
-    <div className="w-full h-full grid grid-cols-2 grid-rows-2">
-
+    <div className="w-full h-full grid grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2">
       <Card
         index={0}
         image="/accentureExp.png"
@@ -14,7 +13,6 @@ function Experience({ currentSection }) {
         isVisible={isVisible}
         dark={false}
       />
-
       <Card
         index={1}
         image="/megasurExp.png"
@@ -23,7 +21,6 @@ function Experience({ currentSection }) {
         isVisible={isVisible}
         dark={true}
       />
-
       <Card
         index={2}
         image="/rocketExp.png"
@@ -32,7 +29,6 @@ function Experience({ currentSection }) {
         isVisible={isVisible}
         dark={true}
       />
-
       <Card
         index={3}
         image={null}
@@ -41,7 +37,6 @@ function Experience({ currentSection }) {
         isVisible={isVisible}
         dark={false}
       />
-
     </div>
   );
 }

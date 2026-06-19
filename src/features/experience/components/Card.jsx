@@ -30,12 +30,10 @@ function Card({ index, image, title, description, isVisible, dark }) {
       variants={cardVariants}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden_out"}
-      // pointer-events off cuando no está visible para no calcular hovers innecesarios
       className={`group relative overflow-hidden border border-white/10 cursor-pointer ${
         !isVisible ? "pointer-events-none" : ""
       }`}
     >
-      {/* Background image — sin willChange, el browser optimiza solo */}
       {image && (
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
@@ -43,7 +41,6 @@ function Card({ index, image, title, description, isVisible, dark }) {
         />
       )}
 
-      {/* Overlay — sin backdrop-blur, solo opacidad sólida */}
       <div
         className={`absolute inset-0 transition-opacity duration-500 group-hover:opacity-0 ${
           dark ? "bg-zinc-950/85" : "bg-zinc-900/75"
@@ -51,10 +48,10 @@ function Card({ index, image, title, description, isVisible, dark }) {
       />
 
       {title && (
-        <div className="relative z-10 h-full flex flex-col justify-center items-start px-10 transition-opacity duration-500 group-hover:opacity-0">
-          <h2 className="text-white text-5xl font-semibold tracking-tight">{title}</h2>
+        <div className="relative z-10 h-full flex flex-col justify-center items-start px-6 sm:px-10 transition-opacity duration-500 group-hover:opacity-0">
+          <h2 className="text-white text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight">{title}</h2>
           {description && (
-            <p className="text-zinc-300 text-base mt-6 max-w-md leading-7">{description}</p>
+            <p className="text-zinc-300 text-sm sm:text-base mt-3 sm:mt-6 max-w-md leading-6 sm:leading-7">{description}</p>
           )}
         </div>
       )}
